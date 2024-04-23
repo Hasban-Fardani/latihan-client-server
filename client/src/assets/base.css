@@ -1,0 +1,31 @@
+/* semantic color variables for this project */
+:root {
+  --color-primary: #e52727;
+  --color-smoke: #fafafa;
+  --color-background: var(--color-smoke);
+  --color-background-mute: ;
+
+  --color-border: var(--vt-c-divider-light-2);
+  --color-border-hover: var(--vt-c-divider-light-1);
+
+  --color-heading: var(--vt-c-text-light-1);
+  --color-text: var(--vt-c-text-light-1);
+
+  --section-gap: 160px;
+  --bs-border-radius: 0 !important;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.6;
+  font-family: Roboto, sans-serif !important;
+  font-size: 14px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
