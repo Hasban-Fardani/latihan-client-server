@@ -1,19 +1,19 @@
 <script setup>
+import AddSparepart from '@/components/AddSparepart.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
-// import { useUser } from '@/stores/user';
 import axios from 'axios';
-import { onBeforeMount, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
-// const user = useUser()
+
 const spareparts = ref([]);
-onBeforeMount(async () => {
+onMounted(async () => {
     await axios.get('/api/v1/sparepart/list')
         .then(({ data }) => {
-            console.log(data)
             spareparts.value = data.spareparts
         })
 })
 
+// Utilites
 const format = (harga) => {
     return new Intl.NumberFormat("id-ID", {
         style: "currency",
@@ -26,6 +26,7 @@ const format = (harga) => {
         <template v-slot:title>
             <h2>Sparepart</h2>
         </template>
+        <AddSparepart></AddSparepart>
         <table class="table">
             <thead>
                 <tr>
@@ -66,7 +67,6 @@ const format = (harga) => {
                         </button>
                     </td>
                 </tr>
-
             </tbody>
         </table>
     </AdminLayout>

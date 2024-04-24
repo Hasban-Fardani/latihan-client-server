@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionDetailController;
@@ -37,6 +38,8 @@ Route::prefix('v1')->group(function () {
     Route::get('sparepart/list', [SparepartController::class, 'index']);
     Route::get('sparepart/{sparepart}', [SparepartController::class, 'show']);
     
+    Route::get('transaction/invoice/{transaction}', [DashboardAdminController::class, 'exportPdf'])
+        ->name('exportPDF');
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('auth/me', [AuthController::class, 'me']);
         Route::post('auth/logout', [AuthController::class, 'logout']);
@@ -47,7 +50,10 @@ Route::prefix('v1')->group(function () {
             ->except(['update']);
         Route::apiResource('transaction.detail', TransactionDetailController::class);
 
-        Route::middleware('ability:admin')
-            ->apiResource('users', UserController::class);
+        Route::middleware('ability:admin')->group(function () {
+            Route::get('admin/category-analytics', [DashboardAdminController::class, 'categoriesAnalytics']);
+            Route::get('admin/transaction-analytics', [DashboardAdminController::class, 'transactionAnalytics']);
+            Route::apiResource('users', UserController::class);
+        });
     });
 });

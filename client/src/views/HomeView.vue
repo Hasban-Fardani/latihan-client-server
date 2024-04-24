@@ -5,16 +5,33 @@ import Footer from '@/components/Footer.vue'
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
 
+
+const getSparepart = async (search) => {
+  console.log("get sparepart " + search)
+  let url = 'api/v1/sparepart/list?limit=8'
+  if (search) {
+    url = 'api/v1/sparepart/list?limit=8&q=' + search
+  }
+
+  return axios.get(url).then(({ data }) => {
+    spareparts.value = data.spareparts
+  })
+}
 let spareparts = ref([])
 onMounted(async () => {
-  await axios.get('api/v1/sparepart/list?limit=8').then(({data}) => {
+  await getSparepart().then(({ data }) => {
     spareparts.value = data.spareparts
   })
 });
+
+const doSearch = (q) => {
+  console.log('do search: ', q.value)
+  getSparepart(q.value)
+}
 </script>
 
 <template>
-  <Navbar/>
+  <Navbar @search="doSearch" />
   <div class="container-fluid">
     <div class="row position-relative">
       <div class="col-12 banner">
@@ -26,20 +43,13 @@ onMounted(async () => {
     </div>
   </div>
   <main class="container  mt-4">
-    <h2 class="text-center">Produk Pilihan</h2>
+    <h2 class="text-center">Produk</h2>
     <div class="d-flex justify-content-center flex-wrap gap-4 mt-3">
-      <SparepartCard
-        v-for="sparepart in spareparts"
-        :key="sparepart.id" 
-        :id="sparepart.id"
-        :image="sparepart.image" 
-        :title="sparepart.name" 
-        :description="sparepart.name" 
-        :price="sparepart.price" 
-        />
+      <SparepartCard v-for="sparepart in spareparts" :key="sparepart.id" :id="sparepart.id" :image="sparepart.image"
+        :title="sparepart.name" :description="sparepart.name" :price="sparepart.price" />
     </div>
   </main>
-  <Footer/>
+  <Footer />
 </template>
 
 <style scoped>
@@ -51,11 +61,16 @@ div.banner {
   padding: 0 !important;
 }
 
+.banner-img {
+  height: 150px;
+  object-fit: cover;
+}
+
 .banner-text {
   position: absolute;
   top: 40%;
   left: 40%;
-  right: 40%; 
+  right: 40%;
   width: 100%;
   margin: 0 auto;
   z-index: 10;

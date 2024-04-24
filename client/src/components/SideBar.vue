@@ -35,6 +35,15 @@
         </RouterLink>
       </li>
       <li>
+        <RouterLink to="/admin/category" :class="{ 'active': $route.path === '/admin/category' }"
+          class="nav-link link-body-emphasis">
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#table"></use>
+          </svg>
+          Kategori
+        </RouterLink>
+      </li>
+      <li>
         <RouterLink to="/admin/transaction" :class="{ 'active': $route.path === '/admin/transaction' }"
           class="nav-link link-body-emphasis">
           <svg class="bi pe-none me-2" width="16" height="16">

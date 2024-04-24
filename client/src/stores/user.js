@@ -8,6 +8,12 @@ export const useUser = defineStore('user', () => {
   let token = computed(() => localStorage.getItem('token'))
   let role = computed(() => localStorage.getItem('role'))
 
+  function clear() {
+    localStorage.removeItem('name')
+    localStorage.removeItem('token')
+    localStorage.removeItem('role')
+  }
+
   async function login(email, password) {
     return axios.post('/api/v1/auth/login', {
       email: email,
@@ -20,7 +26,7 @@ export const useUser = defineStore('user', () => {
       localStorage.setItem('token', data_token)
 
       let data_role = data.user.role
-      localStorage.setItem('token', data_role)
+      localStorage.setItem('role', data_role)
       location.reload()
     })
   }
@@ -39,8 +45,7 @@ export const useUser = defineStore('user', () => {
           Authorization: "Bearer " + token.value 
         }
       }).then(() => {
-        localStorage.removeItem('name')
-        localStorage.removeItem('token')
+        clear();
         location.reload()
       }) 
   }
@@ -61,6 +66,7 @@ export const useUser = defineStore('user', () => {
       let data_role = data.role
       localStorage.setItem('role', data_role)
     }).catch(() => {
+      clear()
       router.push('/login')
     })
   }

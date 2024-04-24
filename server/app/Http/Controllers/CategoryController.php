@@ -16,7 +16,7 @@ class CategoryController extends Controller
         //
         return response()->json([
             'message' => 'Success get all categories',
-            'categories' => Category::all()
+            'categories' => Category::latest()->get(),
         ], 200);
     }
 
@@ -44,14 +44,6 @@ class CategoryController extends Controller
             'message' => 'Success create category', 
             'category' => $category 
         ], 200);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
-    {
-        //
     }
 
     /**

@@ -14,4 +14,8 @@ class TransactionDetail extends Model
     public function transaction(){
         return $this->belongsTo(Transaction::class);
     }
+
+    public function sparepart(){
+        return $this->belongsTo(Sparepart::class);
+    }
 }

@@ -15,20 +15,19 @@ const formData = ref({
 const register = async () => {
   let { name, email, password } = formData.value
 
-  await user.register(name, email, password).then(()=>{
-    router.push({path: '/'})
+  await user.register(name, email, password).then(() => {
+    router.push({ path: '/' })
   })
 }
 </script>
 
 <template>
-  <NavBar/>
+  <NavBar />
   <main class="container-fluid mt-3">
     <h2>Register</h2>
     <div class="card">
       <div class="card-body">
         <form @submit.prevent="register">
-            
           <label for="name" class="form-label">Name</label>
           <input type="text" v-model="formData.name" class="form-control">
           <label for="email" class="form-label">Email</label>
@@ -38,6 +37,6 @@ const register = async () => {
           <button type="submit" class="btn btn-primary mt-2">Register</button>
         </form>
       </div>
-    </div>   
+    </div>
   </main>
 </template>

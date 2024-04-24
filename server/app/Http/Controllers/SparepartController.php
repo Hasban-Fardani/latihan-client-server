@@ -21,6 +21,10 @@ class SparepartController extends Controller
             $spareparts->limit($limit);
         }
         
+        $spareparts->when($request->input('q') !== '', function ($q) use ($request) {
+            return $q->where('name', 'like', '%' . $request->input('q') . '%');
+        });
+
         $paginate = $request->input('paginate');
         $data = $paginate ? $spareparts->paginate(5) : $spareparts->get();
         

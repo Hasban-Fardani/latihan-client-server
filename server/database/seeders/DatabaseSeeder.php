@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
         
         Category::factory(10)->create();
         Sparepart::factory(30)->create();
-        Transaction::factory(10)->create();
-        TransactionDetail::factory(30)->create();
+        Transaction::factory(30)->create();
+        TransactionDetail::factory(100)->create();
     }
 }

@@ -40,6 +40,11 @@ const router = createRouter({
       component: () => import('@/views/admin/SparepartView.vue') 
     },
     {
+      path: '/admin/category',
+      name: 'admin-category',
+      component: () => import('@/views/admin/CategoryView.vue') 
+    },
+    {
       path: '/admin/transaction',
       name: 'admin-transaction',
       component: () => import('@/views/admin/TransactionView.vue') 

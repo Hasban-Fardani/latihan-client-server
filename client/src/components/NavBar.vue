@@ -1,7 +1,15 @@
 <script setup>
 import { useUser } from '@/stores/user';
+import { ref, defineEmits } from 'vue'
+
+
+const emit = defineEmits(['search'])
 
 const user = useUser()
+const searhQuery = ref('')
+const searchChange = () => {
+  emit('search', searhQuery)
+}
 </script>
 <template>
   <nav class="navbar navbar-expand-lg" style="background-color: var(--color-primary);" data-bs-theme="dark">
@@ -13,16 +21,8 @@ const user = useUser()
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <RouterLink class="nav-link" :class="{ 'active': $route.path === '/' }" aria-current="page" to="/">Home
-            </RouterLink>
-          </li>
-          <li class="nav-item">
-            <RouterLink class="nav-link" :class="{ 'active': $route.path === '/spareparts' }" to="/spareparts">Sparepart
-            </RouterLink>
-          </li>
+      <div class="collapse navbar-collapse d-flex justify-content-between w-100" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Kategori
@@ -37,7 +37,13 @@ const user = useUser()
             </ul>
           </li>
         </ul>
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0" v-if="user.token">
+        <div>
+          <form @submit.prevent="searchChange">
+            <input type="text" name="q" class="form-control bg-light text-dark border-0" placeholder="Cari..."
+              v-model="searhQuery" @change="searchChange">
+          </form>
+        </div>
+        <ul class="navbar-nav mb-2 mb-lg-0" v-if="user.token">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="bi bi-person-fill"></i>

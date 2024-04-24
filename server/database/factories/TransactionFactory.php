@@ -20,7 +20,13 @@ class TransactionFactory extends Factory
             'customer_id' => fake()->numberBetween(1, 10),
             'user_id' => fake()->numberBetween(1, 10),
             'total' => fake()->numberBetween(100000, 1000000),
-            'date' => fake()->date()
+            'date' => fake()->randomElement([
+                '2024-04-26',
+                '2024-04-27',
+                '2024-04-28',
+                '2024-04-29',
+                '2024-04-30',
+            ]),
         ];
     }
 }
