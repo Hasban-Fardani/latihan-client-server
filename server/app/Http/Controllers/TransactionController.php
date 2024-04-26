@@ -15,7 +15,7 @@ class TransactionController extends Controller
     {
         return response()->json([
             'message' => 'Success get all transactions',
-            'transactions' => Transaction::with(['user', 'customer', 'details'])->get()
+            'transactions' => Transaction::with(['user', 'customer', 'details'])->latest()->get()
         ], 200);
     }
 

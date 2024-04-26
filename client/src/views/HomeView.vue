@@ -7,7 +7,6 @@ import axios from 'axios';
 
 
 const getSparepart = async (search) => {
-  console.log("get sparepart " + search)
   let url = 'api/v1/sparepart/list?limit=8'
   if (search) {
     url = 'api/v1/sparepart/list?limit=8&q=' + search
@@ -19,13 +18,10 @@ const getSparepart = async (search) => {
 }
 let spareparts = ref([])
 onMounted(async () => {
-  await getSparepart().then(({ data }) => {
-    spareparts.value = data.spareparts
-  })
+  await getSparepart()
 });
 
 const doSearch = (q) => {
-  console.log('do search: ', q.value)
   getSparepart(q.value)
 }
 </script>

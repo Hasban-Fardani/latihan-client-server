@@ -21,8 +21,8 @@ const searchChange = () => {
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse d-flex justify-content-between w-100" id="navbarSupportedContent">
-        <ul class="navbar-nav mb-2 mb-lg-0">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0 me-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Kategori
@@ -59,7 +59,7 @@ const searchChange = () => {
           </li>
 
           <li class="nav-item">
-            <RouterLink class="nav-link" to="/">
+            <RouterLink class="nav-link" to="/cart">
               <i class="bi bi-cart-fill"></i>
               Cart
             </RouterLink>

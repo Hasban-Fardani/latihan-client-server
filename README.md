@@ -74,7 +74,6 @@ there are many competent people in the school and after going through the select
 
 ### Built With
 
-* [![React][React.js]][React-url]
 * [![Vue][Vue.js]][Vue-url]
 * [![Laravel][Laravel.com]][Laravel-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]

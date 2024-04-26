@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Sparepart;
 use App\Models\Transaction;
@@ -45,5 +46,6 @@ class DatabaseSeeder extends Seeder
         Sparepart::factory(30)->create();
         Transaction::factory(30)->create();
         TransactionDetail::factory(100)->create();
+        Cart::factory(50)->create();
     }
 }

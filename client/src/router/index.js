@@ -30,6 +30,11 @@ const router = createRouter({
       component: () => import('@/views/SparepartsListView.vue') 
     },
     {
+      path: '/cart',
+      name: 'cart',
+      component: () => import('@/views/CartView.vue') 
+    },
+    {
       path: '/admin/dashboard',
       name: 'admin-dashboard',
       component: () => import('@/views/admin/DashboardView.vue') 
@@ -48,6 +53,11 @@ const router = createRouter({
       path: '/admin/transaction',
       name: 'admin-transaction',
       component: () => import('@/views/admin/TransactionView.vue') 
+    },
+    {
+      path: '/admin/transaction/:id',
+      name: 'admin-detail',
+      component: () => import('@/views/admin/TransactionDetailView.vue') 
     },
     {
       path: '/admin/user',

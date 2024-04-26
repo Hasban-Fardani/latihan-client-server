@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\TransactionController;
@@ -25,12 +27,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/token', function (Request $request) {
-    $token = $request->session()->token();
-    $token = csrf_token();
-    return $token;
-});
-
 Route::prefix('v1')->group(function () {
     Route::post('auth/login', [AuthController::class, 'login']);
     Route::post('auth/register', [AuthController::class, 'register']);
@@ -40,6 +36,7 @@ Route::prefix('v1')->group(function () {
     
     Route::get('transaction/invoice/{transaction}', [DashboardAdminController::class, 'exportPdf'])
         ->name('exportPDF');
+        
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('auth/me', [AuthController::class, 'me']);
         Route::post('auth/logout', [AuthController::class, 'logout']);
@@ -49,10 +46,12 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('transaction', TransactionController::class)
             ->except(['update']);
         Route::apiResource('transaction.detail', TransactionDetailController::class);
+        Route::apiResource('cart', CartController::class);
 
         Route::middleware('ability:admin')->group(function () {
             Route::get('admin/category-analytics', [DashboardAdminController::class, 'categoriesAnalytics']);
             Route::get('admin/transaction-analytics', [DashboardAdminController::class, 'transactionAnalytics']);
+            Route::get('customers', [CustomerController::class, 'index']);
             Route::apiResource('users', UserController::class);
         });
     });

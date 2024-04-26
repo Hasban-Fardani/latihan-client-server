@@ -2,12 +2,15 @@
 import SideBar from '@/components/SideBar.vue';
 import router from '@/router';
 import { useUser } from '@/stores/user';
-import { onBeforeMount } from 'vue';
+import { onMounted } from 'vue';
 
 const user = useUser()
-onBeforeMount(() => {
-    user.verify()
+onMounted(() => {
+    user.verify().catch(()=>{
+        user.clear()
+    })
 })
+
 const logout = async () => {
     user.logout().then(() => {
         router.push('/')

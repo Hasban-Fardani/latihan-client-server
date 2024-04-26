@@ -1,8 +1,9 @@
 <script setup>
 import AdminLayout from '@/layouts/AdminLayout.vue';
+import CreateTransaction from '@/components/CreateTransaction.vue'
 import { useUser } from '@/stores/user';
+import { onMounted, ref } from 'vue';
 import axios from 'axios';
-import { onBeforeMount, ref } from 'vue';
 
 const format = (harga) => {
     return new Intl.NumberFormat("id-ID", {
@@ -11,25 +12,26 @@ const format = (harga) => {
     }).format(harga)
 }
 
+
 const user = useUser()
 const transactions = ref([]);
-onBeforeMount(async () => {
+onMounted(async () => {
     await axios.get('/api/v1/transaction', {
         headers: {
             Authorization: "Bearer " + user.token
         }
+    }).then(({ data }) => {
+        console.log(data)
+        transactions.value = data.transactions
     })
-        .then(({ data }) => {
-            console.log(data)
-            transactions.value = data.transactions
-        })
 })
 </script>
 <template>
     <AdminLayout>
-        <template x-slot="title">
+        <template v-slot:title>
             <h2>Transaction</h2>
         </template>
+        <CreateTransaction/>
         <table class="table">
             <thead>
                 <tr>
@@ -56,11 +58,11 @@ onBeforeMount(async () => {
                             target="_blank">
                             <i class="bi bi-printer-fill"></i>
                         </a>
-                        <button class="btn btn-warning">
+                        <RouterLink class="btn btn-warning" :to="'/admin/transaction/' + transaction.id">
                             <i class="bi bi-pencil"></i>
-                        </button>
+                        </RouterLink>
                         <button class="btn btn-danger">
-                            <i class="bi bi-trash"></i>
+                            <i class="bi bi-trash" ></i>
                         </button>
                     </td>
                 </tr>

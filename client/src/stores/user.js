@@ -47,7 +47,9 @@ export const useUser = defineStore('user', () => {
       }).then(() => {
         clear();
         location.reload()
-      }) 
+      }).catch(()=>{
+        clear()
+      })
   }
 
   async function verify() {
@@ -71,5 +73,5 @@ export const useUser = defineStore('user', () => {
     })
   }
 
-  return { name, token, role, login, logout, register, verify }
+  return { name, token, role, clear, login, logout, register, verify }
 })
