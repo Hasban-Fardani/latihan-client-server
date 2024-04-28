@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Sparepart;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
@@ -15,7 +16,7 @@ class TransactionDetailController extends Controller
      */
     public function index(Transaction $transaction)
     {
-        $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
+        $transactionDetails = TransactionDetail::with(['sparepart'])->where('transaction_id', $transaction->id)->get();
         return response()->json([
             'message' => 'Success get all transaction details',
             'transactionDetails' => $transactionDetails
@@ -30,7 +31,8 @@ class TransactionDetailController extends Controller
         $validator = Validator::make($request->all(), [
             'values' => 'required|array',
             'values.*.qty' => 'required|integer',
-            'values.*.sparepart_id' => 'required|exists:spareparts,id'
+            'values.*.sparepart_id' => 'required|exists:spareparts,id',
+            'values.*.cart_id' => 'integer', 
         ]);
 
         if ($validator->fails()) {
@@ -53,10 +55,16 @@ class TransactionDetailController extends Controller
         $transaction->details()->createMany($data);
         $transaction->total += $totals;
         $transaction->save();
+        
+        $carts_id = collect($data)->map(function ($d) {
+            return $d['cart_id'];
+        });
+
+        Cart::whereIn('id', $carts_id)->delete();
 
         return response()->json([
             'message' => 'Success store transaction details',
-            'transaction' => $transaction->load('details')
+            'transaction' => $transaction->load('details'),
         ], 200);
     }
 

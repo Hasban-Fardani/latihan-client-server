@@ -30,7 +30,8 @@ class TransactionController extends Controller
 
         if ($validator->fails()){
             return response()->json([
-                'message' => 'Invalid fields'
+                'message' => 'Invalid fields',
+                'errors' => $validator->errors()
             ], 422);
         }
 

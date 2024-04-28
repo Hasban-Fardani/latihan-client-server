@@ -37,13 +37,13 @@ const searchChange = () => {
             </ul>
           </li>
         </ul>
-        <div>
-          <form @submit.prevent="searchChange">
-            <input type="text" name="q" class="form-control bg-light text-dark border-0" placeholder="Cari..."
-              v-model="searhQuery" @change="searchChange">
-          </form>
+        <div class="navbar-nav m-auto">
+
+          <input type="text" name="q" class="form-control bg-light text-dark border-0" placeholder="Cari..."
+            v-model="searhQuery" @keyup="searchChange">
+
         </div>
-        <ul class="navbar-nav mb-2 mb-lg-0" v-if="user.token">
+        <ul class="navbar-nav mb-2 mb-lg-0 ms-auto" v-if="user.token">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="bi bi-person-fill"></i>

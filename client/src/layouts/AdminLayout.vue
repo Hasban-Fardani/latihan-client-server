@@ -5,10 +5,8 @@ import { useUser } from '@/stores/user';
 import { onMounted } from 'vue';
 
 const user = useUser()
-onMounted(() => {
-    user.verify().catch(()=>{
-        user.clear()
-    })
+onMounted(async () => {
+    await user.verify()
 })
 
 const logout = async () => {

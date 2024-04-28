@@ -10,6 +10,14 @@ const user = useUser()
 const transaction_details = ref([])
 const route = useRoute()
 const id = route.params.id
+
+const format = (harga) => {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR"
+  }).format(harga)
+}
+
 onMounted(async () => {
     await axios.get('api/v1/transaction/' + id + '/detail', {
         headers: {
@@ -17,6 +25,7 @@ onMounted(async () => {
         }
     }).then(({data}) => {
         console.log(data)
+        transaction_details.value = data.transactionDetails
     })
 })
 </script>
@@ -51,7 +60,7 @@ onMounted(async () => {
                             <p>{{ format(detail.subtotal) }}</p>
                         </td>
                         <td class="f-flex gap-1">
-                            <RouterLink class="btn btn-warning" :to="'/admin/transaction/' + transaction.id">
+                            <RouterLink class="btn btn-warning" :to="'/admin/transaction/' + id">
                                 <i class="bi bi-pencil"></i>
                             </RouterLink>
                             <button class="btn btn-danger">

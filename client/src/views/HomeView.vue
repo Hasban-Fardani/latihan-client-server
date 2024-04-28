@@ -16,7 +16,9 @@ const getSparepart = async (search) => {
     spareparts.value = data.spareparts
   })
 }
+
 let spareparts = ref([])
+
 onMounted(async () => {
   await getSparepart()
 });

@@ -49,6 +49,7 @@ export const useUser = defineStore('user', () => {
         location.reload()
       }).catch(()=>{
         clear()
+        location.clear()
       })
   }
 
@@ -70,6 +71,7 @@ export const useUser = defineStore('user', () => {
     }).catch(() => {
       clear()
       router.push('/login')
+      location.clear()
     })
   }
 

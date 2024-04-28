@@ -64,7 +64,7 @@ class DashboardAdminController extends Controller
                 'price' => '129.00'
             ]
         ];
-        // dd($transaction);
+        
         $pdf = Pdf::loadView('pdf.invoice_transaction', ['data' => $data, 'transaction' => $transaction]);
         if ($request->input('view')) {
             return $pdf->stream();
