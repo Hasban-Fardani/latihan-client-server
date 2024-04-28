@@ -80,14 +80,6 @@ class TransactionDetailController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Transaction $transaction, TransactionDetail $transactionDetail)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(TransactionDetail $transactionDetail)

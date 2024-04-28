@@ -23,7 +23,8 @@ const total = computed(() => {
 const transaction_id = ref()
 const submit = async () => {
   if (!selectedCustomer.value) {
-    return
+    alert('Harus memilih customer')
+    location.reload()
   }
   await axios.post('/api/v1/transaction', {
     customer_id: selectedCustomer.value
@@ -59,6 +60,11 @@ onMounted(async () => {
     }
   }).then(({ data }) => {
     carts.value = data.carts
+  }).catch((e) => {
+    if(e.response.status == 401) {
+      user.clear()
+      return router.push('/')
+    }
   })
 
   await axios.get('/api/v1/customers', {

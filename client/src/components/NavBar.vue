@@ -22,21 +22,6 @@ const searchChange = () => {
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mb-2 mb-lg-0 me-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Kategori
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <RouterLink class="dropdown-item" to="/">Category1</RouterLink>
-              </li>
-              <li>
-                <RouterLink class="dropdown-item" to="/">Category2</RouterLink>
-              </li>
-            </ul>
-          </li>
-        </ul>
         <div class="navbar-nav m-auto">
 
           <input type="text" name="q" class="form-control bg-light text-dark border-0" placeholder="Cari..."

@@ -42,9 +42,12 @@ const doSearch = (q) => {
   </div>
   <main class="container  mt-4">
     <h2 class="text-center">Produk</h2>
-    <div class="d-flex justify-content-center flex-wrap gap-4 mt-3">
+    <div class="d-flex justify-content-center flex-wrap gap-4 mt-3" v-if="spareparts.value == null">
       <SparepartCard v-for="sparepart in spareparts" :key="sparepart.id" :id="sparepart.id" :image="sparepart.image"
         :title="sparepart.name" :description="sparepart.name" :price="sparepart.price" />
+    </div>
+    <div class="d-flex justify-content-center mt-5" v-else>
+      <h4>Datanya gak ada</h4>
     </div>
   </main>
   <Footer />

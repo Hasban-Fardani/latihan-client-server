@@ -32,10 +32,20 @@ class CartController extends Controller
             'qty' => 'required'
         ]);
 
-        $data = $validator->validated();
-        $data['customer_id'] = auth()->user()->id;
+        $cartExists = Cart::where('sparepart_id', $request->sparepart_id)->where('user_id', auth()->user()->id)->first();
+        if($cartExists) {
+            $cartExists->update(['qty' => $cartExists->qty + $request->qty]);
 
-        $cart = Cart::create($validator->validated());
+            return response()->json([
+                'message' => 'Cart already exists, qty product added',
+                'cart' => $cartExists
+            ]);
+        }
+        
+        $data = $validator->validated();
+        $data['user_id'] = auth()->user()->id;
+
+        $cart = Cart::create($data);
 
         return response()->json([
             'message' => 'Success store cart',

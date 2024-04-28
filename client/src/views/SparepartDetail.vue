@@ -4,7 +4,10 @@ import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import NavBar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
+import router from '@/router';
+import { useUser } from '@/stores/user';
 
+const user = useUser()
 const route = useRoute()
 const sparepartId = route.params.id
 
@@ -36,7 +39,18 @@ const format = (harga) => {
 const addCart = async () => {
     await axios.post('api/v1/cart', {
         sparepart_id: sparepartId,
-        qty: countOnCart
+        qty: countOnCart.value
+    }, {
+        headers: {
+            Authorization: "Bearer " + user.token
+        }
+    }).then((response) => {
+        alert(response.data.message)
+        router.push('/cart')
+        console.log(response);
+    }).catch((e) => {
+        alert(e.response.data.message)
+        router.push('/login')
     });
 }
 </script>
@@ -83,7 +97,7 @@ const addCart = async () => {
                     </button>
                 </div>
                 <div class="d-flex w-100 justify-content-between mt-3">
-                    <button class="btn btn-checkout">Checkout</button>
+                    <button class="btn btn-checkout" @click="addCart">Checkout</button>
                     <button class="btn"><i class="bi bi-cart-fill"></i></button>
                 </div>
             </div>
